@@ -4,7 +4,7 @@
   <title><![CDATA[Paul's Computing Blog]]></title>
   <link href="http://pmagwene.github.com/atom.xml" rel="self"/>
   <link href="http://pmagwene.github.com/"/>
-  <updated>2013-01-18T23:43:27-05:00</updated>
+  <updated>2013-01-18T23:50:39-05:00</updated>
   <id>http://pmagwene.github.com/</id>
   <author>
     <name><![CDATA[Paul M. Magwene]]></name>
@@ -12,5 +12,14 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Inaugurating the blog]]></title>
+    <link href="http://pmagwene.github.com/blog/2013/01/18/inaugurating-the-blog/"/>
+    <updated>2013-01-18T23:46:00-05:00</updated>
+    <id>http://pmagwene.github.com/blog/2013/01/18/inaugurating-the-blog</id>
+    <content type="html"><![CDATA[<p>This post kicks of my Github blog. I&#8217;ve been &#8220;Githubbing&#8221; for since Fall 2011, but haven&#8217;t had a chance to setup my Github page until now, because I found the whole configuration of Jekyll to be confusing and daunting. Octopress to the rescue!</p>
+]]></content>
+  </entry>
   
 </feed>
