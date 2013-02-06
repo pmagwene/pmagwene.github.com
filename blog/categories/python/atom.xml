@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | Paul's Computing Recipes]]></title>
   <link href="http://pmagwene.github.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://pmagwene.github.com/"/>
-  <updated>2013-02-06T13:55:26-05:00</updated>
+  <updated>2013-02-06T17:28:53-05:00</updated>
   <id>http://pmagwene.github.com/</id>
   <author>
     <name><![CDATA[Paul M. Magwene]]></name>
@@ -18,48 +18,44 @@
     <link href="http://pmagwene.github.com/blog/2013/02/06/building-bio-plus-plus-and-egglib/"/>
     <updated>2013-02-06T13:19:00-05:00</updated>
     <id>http://pmagwene.github.com/blog/2013/02/06/building-bio-plus-plus-and-egglib</id>
-    <content type="html"><![CDATA[<p>It took a little finagling to build the Python module <a href="http://egglib.sourceforge.net/">egglib</a> for population genetic analyses.  Here's how I did it.</p>
+    <content type="html"><![CDATA[<p>It took a little finagling to build the Python module <a href="http://egglib.sourceforge.net/">egglib</a> for population genetic analyses.  Here’s how I did it.</p>
 
 <!-- more -->
-
 
 <p>Platform on which this was tested:</p>
 
 <ul>
-<li>OS X 10.7</li>
-<li>Apple Xcode command line tools</li>
-<li>Many tools install via <a href="http://mxcl.github.com/homebrew/">Homebrew</a></li>
+  <li>OS X 10.7</li>
+  <li>Apple Xcode command line tools</li>
+  <li>Many tools install via <a href="http://mxcl.github.com/homebrew/">Homebrew</a></li>
 </ul>
 
-
-<h3>Pre-requisites for Bio++</h3>
+<h3 id="pre-requisites-for-bio">Pre-requisites for Bio++</h3>
 
 <p>Install the following via brew:</p>
 
 <ul>
-<li>cmake -- <code>brew install cmake</code></li>
-<li>doxygen -- <code>brew install doxygen</code></li>
+  <li>cmake – <code>brew install cmake</code></li>
+  <li>doxygen – <code>brew install doxygen</code></li>
 </ul>
 
+<h3 id="building-and-installing-bio">Building and installing Bio++</h3>
 
-<h3>Building and installing Bio++</h3>
-
-<h5>Create a temporary directory to build the libraries</h5>
+<h5 id="create-a-temporary-directory-to-build-the-libraries">Create a temporary directory to build the libraries</h5>
 
 <p><code>
 mkdir -p ~/tmp/bpp
-</code></p>
+</code>  </p>
 
-<h5>Download and unzip the libraires</h5>
+<h5 id="download-and-unzip-the-libraires">Download and unzip the libraires</h5>
 
 <p>We just need three of the Bio++ libraries:</p>
 
 <ol>
-<li>bpp-core</li>
-<li>bpp-seq</li>
-<li>bpp-popgen</li>
+  <li>bpp-core</li>
+  <li>bpp-seq </li>
+  <li>bpp-popgen</li>
 </ol>
-
 
 <p>Use <code>curl</code> from the command line to download the libraries:</p>
 
@@ -77,38 +73,35 @@ tar xvzf bpp-core-2.0.3.tar.gz
 ... etc ...
 </code></p>
 
-<h5>Building individual Bio++ libraries</h5>
+<h5 id="building-individual-bio-libraries">Building individual Bio++ libraries</h5>
 
 <p>Build the libraries in the following order:</p>
 
 <ol>
-<li>bpp-core</li>
-</ol>
+  <li>
+    <p>bpp-core</p>
 
+    <p>~~~~
+ cd ~/tmp/bpp/bpp-core-2.0.3
+ cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+ make             # you may get warnings but OK as long as no errors
+ make install     # if you didn’t get any errors during make
+ ~~~~</p>
+  </li>
+  <li>
+    <p>bpp-seq</p>
 
-<p><code>
-cd ~/tmp/bpp/bpp-core-2.0.3
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local
-make             # you may get warnings but OK as long as no errors
-make install     # if you didn't get any errors during make
-</code></p>
-
-<ol>
-<li>bpp-seq</li>
-</ol>
-
-
-<p><code>
+    <p>~~~~
  cd ~/tmp/bpp/bpp-seq-2.0.3
  cmake -DCMAKE_INSTALL_PREFIX=/usr/local
- make            
- make install     
-</code></p>
-
-<ol>
-<li>bpp-popgen</li>
+ make          <br />
+ make install   <br />
+ ~~~~</p>
+  </li>
+  <li>
+    <p>bpp-popgen</p>
+  </li>
 </ol>
-
 
 <p><code>
 cd ~/tmp/bpp/bpp-popgen-2.0.3
@@ -117,11 +110,11 @@ make
 make install    
 </code></p>
 
-<h3>Pre-requisites for egglib</h3>
+<h3 id="pre-requisites-for-egglib">Pre-requisites for egglib</h3>
 
-<p>These aren't required but we might as well install them.</p>
+<p>These aren’t required but we might as well install them.</p>
 
-<p>First, let's "tap" the Homebrew science packages:</p>
+<p>First, let’s “tap” the Homebrew science packages:</p>
 
 <p><code>
 brew tap homebrew/science
@@ -130,29 +123,27 @@ brew tap homebrew/science
 <p>Then install all the following via brew:</p>
 
 <ul>
-<li>gsl -- <code>brew install gsl</code></li>
-<li>clustalw -- <code>brew install clustal-w</code></li>
-<li>muscle -- <code>brew install muscle</code></li>
-<li>paml -- <code>brew install paml</code></li>
-<li>phyml -- <code>brew install phyml</code></li>
-<li>primer3 -- <code>brew install primer3</code></li>
-<li>phylip -- <code>brew install phylip</code></li>
+  <li>gsl – <code>brew install gsl</code></li>
+  <li>clustalw – <code>brew install clustal-w</code></li>
+  <li>muscle – <code>brew install muscle</code></li>
+  <li>paml – <code>brew install paml</code></li>
+  <li>phyml – <code>brew install phyml</code></li>
+  <li>primer3 – <code>brew install primer3</code></li>
+  <li>phylip – <code>brew install phylip</code></li>
 </ul>
 
-
-<h3>Building and installing egglib</h3>
+<h3 id="building-and-installing-egglib">Building and installing egglib</h3>
 
 <p>Download the following source packages from the <a href="http://sourceforge.net/projects/egglib/files/current/">egglib sourceforge site</a>:</p>
 
 <ul>
-<li>egglib-cpp-2.1.5.tar.gz</li>
-<li>egglib-py-2.1.5.tar.gz</li>
+  <li>egglib-cpp-2.1.5.tar.gz</li>
+  <li>egglib-py-2.1.5.tar.gz</li>
 </ul>
-
 
 <p>Move these to a temporary directory (e.g. <code>~/tmp/egglib</code>) and unzip them (<code>tar xvzf ....</code>).</p>
 
-<h5>Build the egglib c++ library</h5>
+<h5 id="build-the-egglib-c-library">Build the egglib c++ library</h5>
 
 <p><code>
 cd egglib-cpp-2.1.5
@@ -161,9 +152,9 @@ make
 make install  # assuming make return with no errors
 </code></p>
 
-<h5>Build the egglib Python library</h5>
+<h5 id="build-the-egglib-python-library">Build the egglib Python library</h5>
 
-<p>When I tried to build the egglib Python library, <code>setup.py</code> wasn't finding the appropriate version of gcc for some reason. Here's how I fixed that (note the addition of the <code>CC</code> environment variable before the <code>setup.py</code> call):</p>
+<p>When I tried to build the egglib Python library, <code>setup.py</code> wasn’t finding the appropriate version of gcc for some reason. Here’s how I fixed that (note the addition of the <code>CC</code> environment variable before the <code>setup.py</code> call):</p>
 
 <p><code>
 cd egglib-py-2.1.5
@@ -171,19 +162,18 @@ CC=/usr/bin/gcc python setup.py build
 CC=/usr/bin/gcc python setup.py install  # assuming previous step was error free
 </code></p>
 
-<h3>Test your installation of egglib</h3>
+<h3 id="test-your-installation-of-egglib">Test your installation of egglib</h3>
 
-<p>Confirm that egglib import's correctly:</p>
+<p>Confirm that egglib import’s correctly:</p>
 
-<p>```
+<p><code>
 $ python
-Python 2.7.3 (v2.7.3:70274d53c1dd, Apr  9 2012, 20:52:43)
+Python 2.7.3 (v2.7.3:70274d53c1dd, Apr  9 2012, 20:52:43) 
 [GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.</p>
-
-<blockquote><blockquote><blockquote><p>import egglib
-quit()
-```</p></blockquote></blockquote></blockquote>
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; import egglib
+&gt;&gt;&gt; quit()
+</code></p>
 ]]></content>
   </entry>
   

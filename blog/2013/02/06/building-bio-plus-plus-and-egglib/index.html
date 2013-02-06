@@ -9,7 +9,7 @@
   <meta name="author" content="Paul M. Magwene">
 
   
-  <meta name="description" content="It took a little finagling to build the Python module egglib for population genetic analyses. Here&#8217;s how I did it. Platform on which this was &hellip;">
+  <meta name="description" content="It took a little finagling to build the Python module egglib for population genetic analyses. Here’s how I did it. Platform on which this was tested &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,196 +89,171 @@
   </header>
 
 
-<div class="entry-content"><p>It took a little finagling to build the Python module <a href="http://egglib.sourceforge.net/">egglib</a> for population genetic analyses.  Here&#8217;s how I did it.</p>
+<div class="entry-content"><p>It took a little finagling to build the Python module <a href="http://egglib.sourceforge.net/">egglib</a> for population genetic analyses.  Here’s how I did it.</p>
 
 <!-- more -->
-
 
 <p>Platform on which this was tested:</p>
 
 <ul>
-<li>OS X 10.7</li>
-<li>Apple Xcode command line tools</li>
-<li>Many tools install via <a href="http://mxcl.github.com/homebrew/">Homebrew</a></li>
+  <li>OS X 10.7</li>
+  <li>Apple Xcode command line tools</li>
+  <li>Many tools install via <a href="http://mxcl.github.com/homebrew/">Homebrew</a></li>
 </ul>
 
-
-<h3>Pre-requisites for Bio++</h3>
+<h3 id="pre-requisites-for-bio">Pre-requisites for Bio++</h3>
 
 <p>Install the following via brew:</p>
 
 <ul>
-<li>cmake &#8211; <code>brew install cmake</code></li>
-<li>doxygen &#8211; <code>brew install doxygen</code></li>
+  <li>cmake – <code>brew install cmake</code></li>
+  <li>doxygen – <code>brew install doxygen</code></li>
 </ul>
 
+<h3 id="building-and-installing-bio">Building and installing Bio++</h3>
 
-<h3>Building and installing Bio++</h3>
+<h5 id="create-a-temporary-directory-to-build-the-libraries">Create a temporary directory to build the libraries</h5>
 
-<h5>Create a temporary directory to build the libraries</h5>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">mkdir -p ~/tmp/bpp</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p ~/tmp/bpp</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<h5>Download and unzip the libraires</h5>
+<h5 id="download-and-unzip-the-libraires">Download and unzip the libraires</h5>
 
 <p>We just need three of the Bio++ libraries:</p>
 
 <ol>
-<li>bpp-core</li>
-<li>bpp-seq</li>
-<li>bpp-popgen</li>
+  <li>bpp-core</li>
+  <li>bpp-seq </li>
+  <li>bpp-popgen</li>
 </ol>
-
 
 <p>Use <code>curl</code> from the command line to download the libraries:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp/bpp
-</span><span class='line'>curl -O http://biopp.univ-montp2.fr/repos/sources/bpp-core-2.0.3.tar.gz
-</span><span class='line'>curl -O http://biopp.univ-montp2.fr/repos/sources/bpp-seq-2.0.3.tar.gz
-</span><span class='line'>curl -O http://biopp.univ-montp2.fr/repos/sources/bpp-popgen-2.0.3.tar.gz</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">cd ~/tmp/bpp
+</span><span class="line">curl -O http://biopp.univ-montp2.fr/repos/sources/bpp-core-2.0.3.tar.gz
+</span><span class="line">curl -O http://biopp.univ-montp2.fr/repos/sources/bpp-seq-2.0.3.tar.gz
+</span><span class="line">curl -O http://biopp.univ-montp2.fr/repos/sources/bpp-popgen-2.0.3.tar.gz</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>And then unzip each library:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>tar xvzf bpp-core-2.0.3.tar.gz
-</span><span class='line'>... etc ...</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">tar xvzf bpp-core-2.0.3.tar.gz
+</span><span class="line">... etc ...</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<h5>Building individual Bio++ libraries</h5>
+<h5 id="building-individual-bio-libraries">Building individual Bio++ libraries</h5>
 
 <p>Build the libraries in the following order:</p>
 
 <ol>
-<li>bpp-core</li>
+  <li>
+    <p>bpp-core</p>
+
+    <p>~~~~
+ cd ~/tmp/bpp/bpp-core-2.0.3
+ cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+ make             # you may get warnings but OK as long as no errors
+ make install     # if you didn’t get any errors during make
+ ~~~~</p>
+  </li>
+  <li>
+    <p>bpp-seq</p>
+
+    <p>~~~~
+ cd ~/tmp/bpp/bpp-seq-2.0.3
+ cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+ make          <br />
+ make install   <br />
+ ~~~~</p>
+  </li>
+  <li>
+    <p>bpp-popgen</p>
+  </li>
 </ol>
 
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">cd ~/tmp/bpp/bpp-popgen-2.0.3
+</span><span class="line">cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+</span><span class="line">make             
+</span><span class="line">make install    </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp/bpp/bpp-core-2.0.3
-</span><span class='line'>cmake -DCMAKE_INSTALL_PREFIX=/usr/local
-</span><span class='line'>make             # you may get warnings but OK as long as no errors
-</span><span class='line'>make install     # if you didn't get any errors during make</span></code></pre></td></tr></table></div></figure>
+<h3 id="pre-requisites-for-egglib">Pre-requisites for egglib</h3>
 
+<p>These aren’t required but we might as well install them.</p>
 
-<ol>
-<li>bpp-seq</li>
-</ol>
+<p>First, let’s “tap” the Homebrew science packages:</p>
 
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> cd ~/tmp/bpp/bpp-seq-2.0.3
-</span><span class='line'> cmake -DCMAKE_INSTALL_PREFIX=/usr/local
-</span><span class='line'> make            
-</span><span class='line'> make install     </span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li>bpp-popgen</li>
-</ol>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp/bpp/bpp-popgen-2.0.3
-</span><span class='line'>cmake -DCMAKE_INSTALL_PREFIX=/usr/local
-</span><span class='line'>make             
-</span><span class='line'>make install    </span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Pre-requisites for egglib</h3>
-
-<p>These aren&#8217;t required but we might as well install them.</p>
-
-<p>First, let&#8217;s &#8220;tap&#8221; the Homebrew science packages:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew tap homebrew/science</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">brew tap homebrew/science</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Then install all the following via brew:</p>
 
 <ul>
-<li>gsl &#8211; <code>brew install gsl</code></li>
-<li>clustalw &#8211; <code>brew install clustal-w</code></li>
-<li>muscle &#8211; <code>brew install muscle</code></li>
-<li>paml &#8211; <code>brew install paml</code></li>
-<li>phyml &#8211; <code>brew install phyml</code></li>
-<li>primer3 &#8211; <code>brew install primer3</code></li>
-<li>phylip &#8211; <code>brew install phylip</code></li>
+  <li>gsl – <code>brew install gsl</code></li>
+  <li>clustalw – <code>brew install clustal-w</code></li>
+  <li>muscle – <code>brew install muscle</code></li>
+  <li>paml – <code>brew install paml</code></li>
+  <li>phyml – <code>brew install phyml</code></li>
+  <li>primer3 – <code>brew install primer3</code></li>
+  <li>phylip – <code>brew install phylip</code></li>
 </ul>
 
-
-<h3>Building and installing egglib</h3>
+<h3 id="building-and-installing-egglib">Building and installing egglib</h3>
 
 <p>Download the following source packages from the <a href="http://sourceforge.net/projects/egglib/files/current/">egglib sourceforge site</a>:</p>
 
 <ul>
-<li>egglib-cpp-2.1.5.tar.gz</li>
-<li>egglib-py-2.1.5.tar.gz</li>
+  <li>egglib-cpp-2.1.5.tar.gz</li>
+  <li>egglib-py-2.1.5.tar.gz</li>
 </ul>
-
 
 <p>Move these to a temporary directory (e.g. <code>~/tmp/egglib</code>) and unzip them (<code>tar xvzf ....</code>).</p>
 
-<h5>Build the egglib c++ library</h5>
+<h5 id="build-the-egglib-c-library">Build the egglib c++ library</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd egglib-cpp-2.1.5
-</span><span class='line'>./configure
-</span><span class='line'>make
-</span><span class='line'>make install  # assuming make return with no errors</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">cd egglib-cpp-2.1.5
+</span><span class="line">./configure
+</span><span class="line">make
+</span><span class="line">make install  # assuming make return with no errors</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<h5 id="build-the-egglib-python-library">Build the egglib Python library</h5>
 
-<h5>Build the egglib Python library</h5>
+<p>When I tried to build the egglib Python library, <code>setup.py</code> wasn’t finding the appropriate version of gcc for some reason. Here’s how I fixed that (note the addition of the <code>CC</code> environment variable before the <code>setup.py</code> call):</p>
 
-<p>When I tried to build the egglib Python library, <code>setup.py</code> wasn&#8217;t finding the appropriate version of gcc for some reason. Here&#8217;s how I fixed that (note the addition of the <code>CC</code> environment variable before the <code>setup.py</code> call):</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">cd egglib-py-2.1.5
+</span><span class="line">CC=/usr/bin/gcc python setup.py build
+</span><span class="line">CC=/usr/bin/gcc python setup.py install  # assuming previous step was error free</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd egglib-py-2.1.5
-</span><span class='line'>CC=/usr/bin/gcc python setup.py build
-</span><span class='line'>CC=/usr/bin/gcc python setup.py install  # assuming previous step was error free</span></code></pre></td></tr></table></div></figure>
+<h3 id="test-your-installation-of-egglib">Test your installation of egglib</h3>
 
+<p>Confirm that egglib import’s correctly:</p>
 
-<h3>Test your installation of egglib</h3>
-
-<p>Confirm that egglib import&#8217;s correctly:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ python
-</span><span class='line'>Python 2.7.3 (v2.7.3:70274d53c1dd, Apr  9 2012, 20:52:43) 
-</span><span class='line'>[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
-</span><span class='line'>Type "help", "copyright", "credits" or "license" for more information.
-</span><span class='line'>&gt;&gt;&gt; import egglib
-</span><span class='line'>&gt;&gt;&gt; quit()</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">$ python
+</span><span class="line">Python 2.7.3 (v2.7.3:70274d53c1dd, Apr  9 2012, 20:52:43) 
+</span><span class="line">[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+</span><span class="line">Type "help", "copyright", "credits" or "license" for more information.
+</span><span class="line">&gt;&gt;&gt; import egglib
+</span><span class="line">&gt;&gt;&gt; quit()</span></code></pre></td></tr></table></div></figure></notextile></div>
 </div>
 
 
