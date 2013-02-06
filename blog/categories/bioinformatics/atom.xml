@@ -4,7 +4,7 @@
   <title><![CDATA[Category: bioinformatics | Paul's Computing Recipes]]></title>
   <link href="http://pmagwene.github.com/blog/categories/bioinformatics/atom.xml" rel="self"/>
   <link href="http://pmagwene.github.com/"/>
-  <updated>2013-02-06T13:50:12-05:00</updated>
+  <updated>2013-02-06T13:53:41-05:00</updated>
   <id>http://pmagwene.github.com/</id>
   <author>
     <name><![CDATA[Paul M. Magwene]]></name>
@@ -82,29 +82,49 @@ tar xvzf bpp-core-2.0.3.tar.gz
 <p>Build the libraries in the following order:</p>
 
 <ol>
-<li><p>bpp-core</p>
+<li>bpp-core</li>
+</ol>
 
-<pre><code> cd ~/tmp/bpp/bpp-core-2.0.3
- cmake -DCMAKE_INSTALL_PREFIX=/usr/local
- make             # you may get warnings but OK as long as no errors
- make install     # if you didn't get any errors during make
-</code></pre></li>
-<li><p>bpp-seq</p>
+
+<p>```</p>
+
+<pre><code>cd ~/tmp/bpp/bpp-core-2.0.3
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+make             # you may get warnings but OK as long as no errors
+make install     # if you didn't get any errors during make
+</code></pre>
+
+<p>```</p>
+
+<ol>
+<li>bpp-seq</li>
+</ol>
+
+
+<p>```</p>
 
 <pre><code> cd ~/tmp/bpp/bpp-seq-2.0.3
  cmake -DCMAKE_INSTALL_PREFIX=/usr/local
  make            
  make install     
-</code></pre></li>
-<li><p>bpp-popgen</p>
+</code></pre>
 
-<pre><code> cd ~/tmp/bpp/bpp-popgen-2.0.3
- cmake -DCMAKE_INSTALL_PREFIX=/usr/local
- make             
- make install    
-</code></pre></li>
+<p>```</p>
+
+<ol>
+<li>bpp-popgen</li>
 </ol>
 
+
+<p>```</p>
+
+<pre><code>cd ~/tmp/bpp/bpp-popgen-2.0.3
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+make             
+make install    
+</code></pre>
+
+<p>```</p>
 
 <h3>Pre-requisites for egglib</h3>
 

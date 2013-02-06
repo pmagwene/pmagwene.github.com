@@ -4,7 +4,7 @@
   <title><![CDATA[Paul's Computing Recipes]]></title>
   <link href="http://pmagwene.github.com/atom.xml" rel="self"/>
   <link href="http://pmagwene.github.com/"/>
-  <updated>2013-02-06T13:50:12-05:00</updated>
+  <updated>2013-02-06T13:53:41-05:00</updated>
   <id>http://pmagwene.github.com/</id>
   <author>
     <name><![CDATA[Paul M. Magwene]]></name>
@@ -88,28 +88,48 @@
 <p>Build the libraries in the following order:</p>
 
 <ol>
-<li><p>bpp-core</p>
-
-<pre><code> cd ~/tmp/bpp/bpp-core-2.0.3
- cmake -DCMAKE_INSTALL_PREFIX=/usr/local
- make             # you may get warnings but OK as long as no errors
- make install     # if you didn't get any errors during make
-</code></pre></li>
-<li><p>bpp-seq</p>
-
-<pre><code> cd ~/tmp/bpp/bpp-seq-2.0.3
- cmake -DCMAKE_INSTALL_PREFIX=/usr/local
- make            
- make install     
-</code></pre></li>
-<li><p>bpp-popgen</p>
-
-<pre><code> cd ~/tmp/bpp/bpp-popgen-2.0.3
- cmake -DCMAKE_INSTALL_PREFIX=/usr/local
- make             
- make install    
-</code></pre></li>
+<li>bpp-core</li>
 </ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp/bpp/bpp-core-2.0.3
+</span><span class='line'>cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+</span><span class='line'>make             # you may get warnings but OK as long as no errors
+</span><span class='line'>make install     # if you didn't get any errors during make</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>bpp-seq</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> cd ~/tmp/bpp/bpp-seq-2.0.3
+</span><span class='line'> cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+</span><span class='line'> make            
+</span><span class='line'> make install     </span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>bpp-popgen</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp/bpp/bpp-popgen-2.0.3
+</span><span class='line'>cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+</span><span class='line'>make             
+</span><span class='line'>make install    </span></code></pre></td></tr></table></div></figure>
 
 
 <h3>Pre-requisites for egglib</h3>
