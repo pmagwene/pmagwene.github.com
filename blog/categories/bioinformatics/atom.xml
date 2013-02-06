@@ -4,7 +4,7 @@
   <title><![CDATA[Category: bioinformatics | Paul's Computing Recipes]]></title>
   <link href="http://pmagwene.github.com/blog/categories/bioinformatics/atom.xml" rel="self"/>
   <link href="http://pmagwene.github.com/"/>
-  <updated>2013-02-06T17:33:48-05:00</updated>
+  <updated>2013-02-06T17:34:22-05:00</updated>
   <id>http://pmagwene.github.com/</id>
   <author>
     <name><![CDATA[Paul M. Magwene]]></name>
@@ -78,27 +78,29 @@ tar xvzf bpp-core-2.0.3.tar.gz
 <p>Build the libraries in the following order:</p>
 
 <ol>
-  <li>
-    <p>bpp-core
-<code>
+  <li>bpp-core</li>
+</ol>
+
+<p><code>
 cd ~/tmp/bpp/bpp-core-2.0.3
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local
 make             # warnings are OK, errors are not
 make install     # if you didn't get any errors during make
 </code></p>
-  </li>
-  <li>
-    <p>bpp-seq
-<code>
+
+<ol>
+  <li>bpp-seq</li>
+</ol>
+
+<p><code>
 cd ~/tmp/bpp/bpp-seq-2.0.3
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local
 make            
 make install     
 </code></p>
-  </li>
-  <li>
-    <p>bpp-popgen</p>
-  </li>
+
+<ol>
+  <li>bpp-popgen</li>
 </ol>
 
 <p><code>
