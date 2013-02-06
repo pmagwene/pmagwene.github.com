@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | Paul's Computing Recipes]]></title>
   <link href="http://pmagwene.github.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://pmagwene.github.com/"/>
-  <updated>2013-02-06T13:53:41-05:00</updated>
+  <updated>2013-02-06T13:54:17-05:00</updated>
   <id>http://pmagwene.github.com/</id>
   <author>
     <name><![CDATA[Paul M. Magwene]]></name>
@@ -82,22 +82,15 @@ tar xvzf bpp-core-2.0.3.tar.gz
 <p>Build the libraries in the following order:</p>
 
 <ol>
-<li>bpp-core</li>
-</ol>
+<li><p>bpp-core</p>
 
-
-<p>```</p>
-
-<pre><code>cd ~/tmp/bpp/bpp-core-2.0.3
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local
-make             # you may get warnings but OK as long as no errors
-make install     # if you didn't get any errors during make
-</code></pre>
-
-<p>```</p>
-
-<ol>
-<li>bpp-seq</li>
+<p> <code>
+ cd ~/tmp/bpp/bpp-core-2.0.3
+ cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+ make             # you may get warnings but OK as long as no errors
+ make install     # if you didn't get any errors during make
+</code></p></li>
+<li><p>bpp-seq</p></li>
 </ol>
 
 
