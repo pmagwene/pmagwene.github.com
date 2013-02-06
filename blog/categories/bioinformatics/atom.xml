@@ -4,7 +4,7 @@
   <title><![CDATA[Category: bioinformatics | Paul's Computing Recipes]]></title>
   <link href="http://pmagwene.github.com/blog/categories/bioinformatics/atom.xml" rel="self"/>
   <link href="http://pmagwene.github.com/"/>
-  <updated>2013-02-06T13:22:09-05:00</updated>
+  <updated>2013-02-06T13:33:05-05:00</updated>
   <id>http://pmagwene.github.com/</id>
   <author>
     <name><![CDATA[Paul M. Magwene]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<h1>Building Bio++ and egglib from source</h1>
 
 <p>It took a little finagling to build the Python module <a href="http://egglib.sourceforge.net/">egglib</a> for population genetic analyses.  Here's how I did it.</p>
+
+<!-- more -->
+
 
 <p>Platform on which this was tested:</p>
 
