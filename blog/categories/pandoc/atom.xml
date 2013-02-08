@@ -4,7 +4,7 @@
   <title><![CDATA[Category: pandoc | Paul's Computing Recipes]]></title>
   <link href="http://pmagwene.github.com/blog/categories/pandoc/atom.xml" rel="self"/>
   <link href="http://pmagwene.github.com/"/>
-  <updated>2013-02-07T21:51:47-05:00</updated>
+  <updated>2013-02-07T21:59:11-05:00</updated>
   <id>http://pmagwene.github.com/</id>
   <author>
     <name><![CDATA[Paul M. Magwene]]></name>
@@ -109,7 +109,7 @@ python letter-to-joe.mk
 
 <h5 id="other-ways-to-do-this">Other ways to do this?</h5>
 
-<p>Have you come up with another, perhaps more elegant, solution? If so, please leave a comment describing your approach!</p>
+<p>Have you come up with another, perhaps more elegant, solution? If so, I’d love to hear about it!</p>
 ]]></content>
   </entry>
   
