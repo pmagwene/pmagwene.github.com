@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: pandoc | Paul's Computing Recipes]]></title>
+  <link href="http://pmagwene.github.com/blog/categories/pandoc/atom.xml" rel="self"/>
+  <link href="http://pmagwene.github.com/"/>
+  <updated>2013-02-07T21:46:17-05:00</updated>
+  <id>http://pmagwene.github.com/</id>
+  <author>
+    <name><![CDATA[Paul M. Magwene]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Pandoc Worflow for Writing Letters in LaTeX]]></title>
+    <link href="http://pmagwene.github.com/blog/2013/02/07/pandoc-latex-letters/"/>
+    <updated>2013-02-07T00:00:00-05:00</updated>
+    <id>http://pmagwene.github.com/blog/2013/02/07/pandoc-latex-letters</id>
+    <content type="html"><![CDATA[<p><a href="">Pandoc</a> is a wonderful tool for facilitating a plain text based workflow.  I wanted to see if I could integrate Pandoc with my custom LaTeX letter template.  </p>
+
+<!-- more -->
+
+<p>Pandoc generally lets LaTeX through unchanged, but it didn’t seem to like the <code>\begin{letter}{addressee \\ etc. }</code> construct. </p>
+
+<p>The Pandoc solution to this sort of thing is to use a custom template in combination with the <code>--variable=KEY:VALUE</code> construct at the command line.</p>
+
+<h4 id="custom-template">Custom template</h4>
+
+<p>Here’s a minimal custom template we’ll call <code>minletter.latex</code>:</p>
+
+<p>```
+\documentclass[11pt]{letter}</p>
+
+<p>\address{John Q. Public \ 1234 Main St. \ Smalltown, CA 91234}
+\signature{John Q. Public}</p>
+
+<p>\begin{document}
+$if(addressee)$
+\begin{letter}{$addressee$}
+$else$
+\begin{letter}{\mbox{}\\mbox{}}
+$endif$</p>
+
+<p>$body$</p>
+
+<p>\closing{Sincerely,}
+\end{letter}
+\end{document}
+```</p>
+
+<p>Like all Pandoc custom templates this should be saved in <code>~/.pandoc/templates</code>.</p>
+
+<h4 id="an-example-letter">An example letter</h4>
+
+<p>Here’s a simple letter that we can pass to Pandoc. Name this <code>letter-to-joe.md</code>:</p>
+
+<p>```
+\opening{Dear Joe,}</p>
+
+<p>How are you?  It’s been a long time since we’ve been in touch. 
+Sorry about that $50 I borrowed and never returned. 
+Isn’t it about time we patched things up?<br />
+By the way, might you have a couple hundred bucks I can borrow? 
+I promise to pay you back soon.
+```</p>
+
+<h4 id="processing-the-letter-with-pandoc">Processing the letter with Pandoc</h4>
+
+<p>We can then call Pandoc as follows:</p>
+
+<p><code>
+pandoc letter-to-joe.md -o letter-to-joe.pdf --template minletter --variable=addressee:"Joe McShmoe \\ 9876 Mulberry Ln. \\ Salinas, CA 97654"
+</code></p>
+
+<h4 id="can-we-improve-on-this">Can we improve on this?</h4>
+
+<p>The above example works, but it’s not self documenting.  Six months from now if I want to write a follow-up letter to Joe (for another loan!) I’ll have to lookup his address again as well as remember the Pandoc command line options I used.</p>
+
+<p>The solution I came up with is based on a a simple Python build system called <a href="http://code.google.com/p/fabricate/">Fabricate</a>. Fabricate is a single file Python library that can be used to create build scripts for a wide variety of programming languages, command line tools, etc.  To install Fabricate just make sure <code>fabricate.py</code> (see website) is somewhere in your <code>PYTHONPATH</code>.</p>
+
+<h4 id="a-fabricate-make-file">A fabricate make file</h4>
+
+<p>Here’s a very simple Fabricate build script for our letter above. Name this <code>letter-to-joe.mk</code>:</p>
+
+<p>```
+from fabricate import *</p>
+
+<p>input = “letter-to-joe.md”
+output = “letter-to-joe.pdf”
+addressee = r’Joe McShmoe \ 9876 Mulberry Ln. \ Salinas, CA 97654’</p>
+
+<p>template = “minletter.latex”</p>
+
+<p>run(‘pandoc’, input,
+	‘-o’, output, 
+	‘–template’, template,
+	‘–variable=addressee:%s’ % addressee)
+```</p>
+
+<p>You can now build the letter simply by typing the following from the command line:</p>
+
+<p><code>
+python letter-to-joe.mk
+</code></p>
+
+<p>Next time I need to write a letter to Joe (or anyone else for that matter) I can simply copy my build script to a new file (e.g. <code>followup-to-joe.mk</code>) and change the input, output, and addressee fields as appropriate.</p>
+
+<h5 id="other-ways-to-do-this">Other ways to do this?</h5>
+
+<p>Have you come up with another, perhaps more elegant, solution? If so, please leave a comment describing your approach!</p>
+]]></content>
+  </entry>
+  
+</feed>

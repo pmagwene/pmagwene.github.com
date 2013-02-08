@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>A Pandoc Worflow for Writing Letters in LaTeX - Paul's Computing Recipes</title>
+  <meta name="author" content="Paul M. Magwene">
+
+  
+  <meta name="description" content="Pandoc is a wonderful tool for facilitating a plain text based workflow. I wanted to see if I could integrate Pandoc with my custom LaTeX letter &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://pmagwene.github.com/blog/2013/02/07/pandoc-latex-letters/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Paul's Computing Recipes" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:pmagwene.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">A Pandoc Worflow for Writing Letters in LaTeX</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-07T00:00:00-05:00" pubdate data-updated="true">Feb 7<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="">Pandoc</a> is a wonderful tool for facilitating a plain text based workflow.  I wanted to see if I could integrate Pandoc with my custom LaTeX letter template.  </p>
+
+<!-- more -->
+
+<p>Pandoc generally lets LaTeX through unchanged, but it didn’t seem to like the <code>\begin{letter}{addressee \\ etc. }</code> construct. </p>
+
+<p>The Pandoc solution to this sort of thing is to use a custom template in combination with the <code>--variable=KEY:VALUE</code> construct at the command line.</p>
+
+<h4 id="custom-template">Custom template</h4>
+
+<p>Here’s a minimal custom template we’ll call <code>minletter.latex</code>:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">\documentclass[11pt]{letter}
+</span><span class="line">
+</span><span class="line">\address{John Q. Public \\ 1234 Main St. \\ Smalltown, CA 91234}
+</span><span class="line">\signature{John Q. Public}
+</span><span class="line">
+</span><span class="line">\begin{document}
+</span><span class="line">$if(addressee)$
+</span><span class="line">\begin{letter}{$addressee$}
+</span><span class="line">$else$
+</span><span class="line">\begin{letter}{\mbox{}\\\mbox{}}
+</span><span class="line">$endif$
+</span><span class="line">
+</span><span class="line">$body$
+</span><span class="line">
+</span><span class="line">\closing{Sincerely,}
+</span><span class="line">\end{letter}
+</span><span class="line">\end{document}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Like all Pandoc custom templates this should be saved in <code>~/.pandoc/templates</code>.</p>
+
+<h4 id="an-example-letter">An example letter</h4>
+
+<p>Here’s a simple letter that we can pass to Pandoc. Name this <code>letter-to-joe.md</code>:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">\opening{Dear Joe,}
+</span><span class="line">
+</span><span class="line">How are you?  It's been a long time since we've been in touch. 
+</span><span class="line">Sorry about that $50 I borrowed and never returned. 
+</span><span class="line">Isn't it about time we patched things up?  
+</span><span class="line">By the way, might you have a couple hundred bucks I can borrow? 
+</span><span class="line">I promise to pay you back soon.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="processing-the-letter-with-pandoc">Processing the letter with Pandoc</h4>
+
+<p>We can then call Pandoc as follows:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">pandoc letter-to-joe.md -o letter-to-joe.pdf --template minletter --variable=addressee:"Joe McShmoe \\ 9876 Mulberry Ln. \\ Salinas, CA 97654"</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="can-we-improve-on-this">Can we improve on this?</h4>
+
+<p>The above example works, but it’s not self documenting.  Six months from now if I want to write a follow-up letter to Joe (for another loan!) I’ll have to lookup his address again as well as remember the Pandoc command line options I used.</p>
+
+<p>The solution I came up with is based on a a simple Python build system called <a href="http://code.google.com/p/fabricate/">Fabricate</a>. Fabricate is a single file Python library that can be used to create build scripts for a wide variety of programming languages, command line tools, etc.  To install Fabricate just make sure <code>fabricate.py</code> (see website) is somewhere in your <code>PYTHONPATH</code>.</p>
+
+<h4 id="a-fabricate-make-file">A fabricate make file</h4>
+
+<p>Here’s a very simple Fabricate build script for our letter above. Name this <code>letter-to-joe.mk</code>:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">from fabricate import *
+</span><span class="line">
+</span><span class="line">input = "letter-to-joe.md"
+</span><span class="line">output = "letter-to-joe.pdf"
+</span><span class="line">addressee = r'Joe McShmoe \\ 9876 Mulberry Ln. \\ Salinas, CA 97654'
+</span><span class="line">
+</span><span class="line">template = "minletter.latex"
+</span><span class="line">
+</span><span class="line">run('pandoc', input,
+</span><span class="line">	'-o', output, 
+</span><span class="line">	'--template', template,
+</span><span class="line">	'--variable=addressee:%s' % addressee)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>You can now build the letter simply by typing the following from the command line:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">python letter-to-joe.mk</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Next time I need to write a letter to Joe (or anyone else for that matter) I can simply copy my build script to a new file (e.g. <code>followup-to-joe.mk</code>) and change the input, output, and addressee fields as appropriate.</p>
+
+<h5 id="other-ways-to-do-this">Other ways to do this?</h5>
+
+<p>Have you come up with another, perhaps more elegant, solution? If so, please leave a comment describing your approach!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul M. Magwene</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-07T00:00:00-05:00" pubdate data-updated="true">Feb 7<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/latex/'>LaTeX</a>, <a class='category' href='/blog/categories/pandoc/'>pandoc</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pmagwene.github.com/blog/2013/02/07/pandoc-latex-letters/" data-via="" data-counturl="http://pmagwene.github.com/blog/2013/02/07/pandoc-latex-letters/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/02/06/building-bio-plus-plus-and-egglib/" title="Previous Post: Building Bio++ and Egglib from source">&laquo; Building Bio++ and Egglib from source</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://pmagwene.github.com" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://pmagwene.github.com/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      <a href="mailto:" alt="E-Mail"><img src="/images/Envelope.png"></a>
+      <a href="http://pmagwene.github.com/atom.xml" alt="subscribe feed"><img src="/images/rss.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>About</h1>
+  <p>Paul's Computing Recipes is a blog documenting step-by-step instructions for common and not-so-common computing tasks. </p>
+
+  <p>Maintained by Paul Magwene.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/02/07/pandoc-latex-letters/">A Pandoc Worflow for Writing Letters in LaTeX</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/06/building-bio-plus-plus-and-egglib/">Building Bio++ and Egglib from source</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/18/inaugurating-the-blog/">Inaugurating the blog</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paul M. Magwene -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
